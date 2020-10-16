@@ -76,16 +76,14 @@ export default function QuestionsStage4({navigation}) {
 
     function showIc2(index){
         
-      if(index==0)return('')
-      else{
-        return(
-            <View style={{justifyContent:'center',alignItems:'center',paddingVertical:10}}> 
-                <Text style={{color:'#fff'}}>Stage 4 of 4</Text>
-                <Text style={{color:'#fff'}}>{counter4}</Text>
-                <StatusBar backgroundColor="#1a1a2e"   />
-            </View>
-          )
-      }
+        if(index==0)return('')
+        else{
+          return(
+              <Image 
+              style={{ width: 90, height: 90 }}
+              source={require('./../../assets/nope.png')} />
+            )
+        }
     }
 
 
