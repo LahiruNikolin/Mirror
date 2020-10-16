@@ -1,28 +1,47 @@
 import React from 'react';
-import { StyleSheet,View, Text,Button,TextInput,TouchableOpacity  } from 'react-native';
+import { StyleSheet,View, Text,StatusBar,TextInput,Image,TouchableOpacity,Dimensions, SafeAreaView  } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faKey,faUser } from '@fortawesome/free-solid-svg-icons'
+import { faKey,faUser,faArrowRight } from '@fortawesome/free-solid-svg-icons'
 
 export default function HomeScreen({navigation}) {
     return (
-        <View style={styles.container}>
-          <Text style={{fontSize:25,paddingTop:20,marginBottom:70}}>Welcome</Text>
+        <SafeAreaView style={styles.container}>
+          <View style={{ width: Dimensions.get('window').width,justifyContent:'center',alignItems:'center'}}>
+
+           <Text style={{color:'#fff',fontSize:35, marginTop:15}}>Mirror</Text>
+           <StatusBar   backgroundColor="#1a1a2e" />
+            <Image 
+              style={{ width: 50, height: 50,marginTop:20,borderRadius:50 }}
+              source={require('./../../assets/atom.png')} />
+          </View>
+          <View style={{width: Dimensions.get('window').width,
+          justifyContent:'center',alignItems:'flex-start',paddingLeft:15,
+          
+          }}
+          
+          >
+            <Text style={{fontSize:32 ,marginTop:30,color:'#fff'}}>Welcome Back</Text>
+            <Text style={{fontSize:15,marginBottom:30,color:'#b2bec3'}}>Login to Continue</Text>
+          </View>
+         
           <View style={styles.input_cont}>
               <View style={styles.input_subcont}>
-                <FontAwesomeIcon  style={{color:'#212121',marginTop:5}} size={ 32 } icon={ faUser } />
+                <FontAwesomeIcon  style={{color:'#fff',marginTop:5}} size={ 32 } icon={ faUser } />
                 
                 <TextInput
                   style={styles.text_inp}
                   placeholder='Email'
+                  placeholderTextColor="#b2bec3" 
                     
                 />
               </View>
-              <View style={{...styles.input_subcont,marginBottom:15}}>
-                <FontAwesomeIcon  style={{color:'#212121',marginTop:5}} size={ 32 } icon={ faKey } />
+              <View style={{...styles.input_subcont,marginBottom:30}}>
+                <FontAwesomeIcon  style={{color:'#fff',marginTop:5}} size={ 32 } icon={ faKey } />
                 <TextInput
                   style={styles.text_inp}
                   secureTextEntry={true}
                   placeholder='Password'
+                  placeholderTextColor="#b2bec3" 
                   
                   
                 />
@@ -31,65 +50,92 @@ export default function HomeScreen({navigation}) {
               <View>
 
                 <TouchableOpacity style={styles.btn}>
-                  <Text style={{color:'#fff',textAlign:"center",fontSize:20}} >Login</Text>
+                  <Text style={{color:'#fff',textAlign:"center",fontSize:20}} >LOGIN</Text>
                   </TouchableOpacity> 
                 <TouchableOpacity style={styles.btn}  
                  onPress={() => navigation.navigate('SignUp')}  >
-                  <Text style={{color:'#fff',textAlign:"center",fontSize:20}}>Sign Up</Text>
+                  <Text style={{color:'#fff',textAlign:"center",fontSize:20}}>SIGN UP</Text>
                 </TouchableOpacity> 
 
               </View> 
 
           </View>
-          <Button title="Just take me to questions"
-         onPress={() => navigation.navigate('Questions')}
-        />
+          <View style={{width: Dimensions.get('window').width,
+          
+         // backgroundColor:'green',
+          justifyContent:'flex-end',
+          alignItems:'flex-end',
+          paddingHorizontal:15,
+          paddingTop:10
+          
+          }}>
+              <TouchableOpacity style={ {flexDirection:'row',  }}  
+                  onPress={() => navigation.navigate('Questions')}
+                >
+                  <Text style={{color:'#fff',textAlign:"center",fontSize:16,
+                  textDecorationLine:'underline',alignSelf:"center"
+                  
+                  }}>Just Take Me To Test</Text>
+                  <FontAwesomeIcon  style={{color:'#fff' ,marginLeft:5}} size={ 22 } icon={ faArrowRight } />
+              </TouchableOpacity> 
+
+          </View>
+         
          
        
-      </View>
+      </SafeAreaView>
     );
   }
 
 const styles = StyleSheet.create({
     container: {
       
-      justifyContent:'center',
+     // justifyContent:'center',
       alignItems:'center',
-      backgroundColor:'#e8e8e8'
+      backgroundColor:'#1e272e',
+      height:Dimensions.get('window').height
       
 
     },
     input_cont:{
+      paddingLeft:15,
       flexDirection:'column',
-      //backgroundColor:'red',
+     // backgroundColor:'red',
       justifyContent:'center',
-      marginBottom:20
+      marginBottom:20,
+      width: Dimensions.get('window').width,
+
     },
     input_subcont:{
       
       flexDirection:'row',
      // backgroundColor:'yellow',
-      marginBottom:40
+      marginBottom:20
      
     },
     text_inp:{
       marginLeft:15,
       height: 45,
-      width:240, 
-      borderColor: 'gray',
+      width:260, 
+      borderColor: '#2f3640',
       borderWidth: 1,
       borderRadius:5,
       
       fontSize:15,
-      padding:4
+      padding:4,
+
+      
     
     },
     btn: {
          
       marginVertical:10,
-      marginHorizontal:5,
+      marginRight:15,
       padding:10,
-      backgroundColor:'#005086'
+      paddingVertical:16,
+      backgroundColor:'#0984e3',
+      borderRadius:5,
+      
 
 
       
