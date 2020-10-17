@@ -21,7 +21,14 @@ export default function App() {
     <NavigationContainer> 
       <Stack.Navigator>
         <Stack.Screen name="Home" component={HomeScreen} options={{headerShown: false,}} />
-        <Stack.Screen name="SignUp" component={SignUpScreen}  options={{ title: 'Register' }}/>
+        <Stack.Screen name="SignUp" component={SignUpScreen}  options={{ title: 'Register',
+       headerStyle: {
+        backgroundColor: '#1a1a2e',
+      } ,
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      }, }}/>
         <Stack.Screen name="Questions" component={QuestionScreen}  options={{
           
           headerStyle: {

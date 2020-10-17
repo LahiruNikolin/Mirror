@@ -1,9 +1,17 @@
 import React from 'react';
-import { StyleSheet,View, Text,StatusBar,TextInput,Image,TouchableOpacity,Dimensions, SafeAreaView  } from 'react-native';
+import { StyleSheet,View, Text,StatusBar,TextInput,Image,TouchableOpacity,
+  Dimensions, SafeAreaView,KeyboardAvoidingView  } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faKey,faUser,faArrowRight } from '@fortawesome/free-solid-svg-icons'
 
 export default function HomeScreen({navigation}) {
+
+  const  Offset = Platform.OS === 'ios' ? 40 : 0
+
+         
+
+          
+    
     return (
         <SafeAreaView style={styles.container}>
           <View style={{ width: Dimensions.get('window').width,justifyContent:'center',alignItems:'center'}}>
@@ -25,6 +33,11 @@ export default function HomeScreen({navigation}) {
           </View>
          
           <View style={styles.input_cont}>
+          <KeyboardAvoidingView 
+            behavior='position'
+            keyboardVerticalOffset={Offset}>
+      
+      
               <View style={styles.input_subcont}>
                 <FontAwesomeIcon  style={{color:'#fff',marginTop:5}} size={ 32 } icon={ faUser } />
                 
@@ -58,7 +71,7 @@ export default function HomeScreen({navigation}) {
                 </TouchableOpacity> 
 
               </View> 
-
+              </KeyboardAvoidingView>
           </View>
           <View style={{width: Dimensions.get('window').width,
           
@@ -66,7 +79,7 @@ export default function HomeScreen({navigation}) {
           justifyContent:'flex-end',
           alignItems:'flex-end',
           paddingHorizontal:15,
-          paddingTop:10
+          paddingTop:5
           
           }}>
               <TouchableOpacity style={ {flexDirection:'row',  }}  
@@ -123,6 +136,7 @@ const styles = StyleSheet.create({
       
       fontSize:15,
       padding:4,
+      color:'#fff'
 
       
     
