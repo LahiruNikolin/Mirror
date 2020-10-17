@@ -4,7 +4,18 @@ import { StyleSheet,View, Text,StatusBar,TextInput,Image,TouchableOpacity
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faKey,faUser, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
+import firebase from 'firebase'
+
 export default function HomeScreen({navigation}) {
+
+  const login=(user,password)=>{
+
+    console.log(user);
+
+   firebase.auth().createUserWithEmailAndPassword(user,password);
+
+
+  }
 
 
   const  Offset = Platform.OS === 'ios' ? 40 : 0
@@ -68,7 +79,11 @@ export default function HomeScreen({navigation}) {
             </View>
           <View>
 
-            <TouchableOpacity style={styles.btn}>
+            <TouchableOpacity style={styles.btn}
+             onPress={() =>  {login("amal123@gmail.com","asdaaaa")
+            }}
+            
+            >
               <Text style={{color:'#fff',textAlign:"center",fontSize:20}} >Create Account</Text>
               </TouchableOpacity> 
             

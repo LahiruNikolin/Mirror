@@ -11,6 +11,10 @@ import QuestionsStage2 from './src/screens/QuestionsStage2';
 import QuestionsStage3 from './src/screens/QuestionsStage3';
 import QuestionsStage4 from './src/screens/QuestionsStage4';
 import DetectedScreen from './src/screens/DetectedScreen';
+import * as firebase from 'firebase';
+import {firebaseConfig} from './src/Api/config';
+
+firebase.initializeApp(firebaseConfig);
 
 
 
