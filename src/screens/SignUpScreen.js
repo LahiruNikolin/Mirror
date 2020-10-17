@@ -1,6 +1,6 @@
-import React from 'react';
-import { StyleSheet,View, Text,StatusBar,TextInput,Image,TouchableOpacity
-  ,Dimensions, SafeAreaView,KeyboardAvoidingView  } from 'react-native';
+import React,{ useState } from 'react';
+import { StyleSheet,View, Text,StatusBar,TextInput,ActivityIndicator,TouchableOpacity
+  ,Dimensions, SafeAreaView,KeyboardAvoidingView,ToastAndroid  } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faKey,faUser, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
@@ -8,11 +8,39 @@ import firebase from 'firebase'
 
 export default function HomeScreen({navigation}) {
 
-  const login=(user,password)=>{
 
-    console.log(user);
+  const [userInfo, setUserInfo] = useState({email:'',password:''});
+  const [creating, setCreating] = useState(false);
 
-   firebase.auth().createUserWithEmailAndPassword(user,password);
+  const login=()=>{
+
+   // console.log(userInfo);
+
+    firebase.auth().createUserWithEmailAndPassword(userInfo.email,userInfo.password)
+    .then(()=>{
+      console.log("im game");
+      setCreating(false);
+      navigation.navigate('Questions');
+    })
+    .catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      if (errorCode == 'auth/email-already-in-use') {
+        console.log("crap");
+        
+        ToastAndroid.showWithGravity(
+          errorMessage,
+          ToastAndroid.SHORT,
+          ToastAndroid.BOTTOM
+        );
+
+      } else {
+        console.log(errorMessage);
+      }
+      console.log(error);
+      setCreating(false);
+    });
 
 
   }
@@ -35,9 +63,14 @@ export default function HomeScreen({navigation}) {
       >
         
         <Text style={{fontSize:15,marginBottom:20,marginTop:70,color:'#b2bec3'}}>Please Fill the fields</Text>
+       
+      </View>
+      <View style={{position:"absolute",top:85}}>
+            <ActivityIndicator size="large" color="#0000ff" animating={creating}/>
       </View>
      
       <View style={styles.input_cont}>
+     
       <KeyboardAvoidingView 
             behavior='position'
             keyboardVerticalOffset={Offset}>
@@ -49,7 +82,10 @@ export default function HomeScreen({navigation}) {
               style={styles.text_inp}
               placeholder='Email'
               placeholderTextColor="#b2bec3" 
-                
+              onChangeText={(email) => setUserInfo(state =>{
+                return {...state,email}
+        
+              })} 
             />
           </View>
           <View style={{...styles.input_subcont,marginBottom:30}}>
@@ -72,16 +108,23 @@ export default function HomeScreen({navigation}) {
                 secureTextEntry={true}
                 placeholder='Confirm Password'
                 placeholderTextColor="#b2bec3" 
-                
+                onChangeText={(password) => setUserInfo(state =>{
+                  return {...state,password}
+          
+                })} 
                 
               />
               
             </View>
+            
           <View>
 
             <TouchableOpacity style={styles.btn}
-             onPress={() =>  {login("amal123@gmail.com","asdaaaa")
-            }}
+             onPress={() => {
+              setCreating(true);
+              login()
+             }
+            }
             
             >
               <Text style={{color:'#fff',textAlign:"center",fontSize:20}} >Create Account</Text>
