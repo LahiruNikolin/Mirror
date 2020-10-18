@@ -6,7 +6,10 @@ import { faTimes,faCheck,faEye } from '@fortawesome/free-solid-svg-icons'
 
 
 
-export default function QuestionsStage4({navigation}) {
+export default function QuestionsStage4({route,navigation}) {
+
+    const { letter } = route.params;
+
     const [questions4, setQuestions4] = useState([
         {text: 'Do you plan your entire day?',key:'1',value:0},
         {text: 'Do you find lists helpful?',key:'2',value:0},
@@ -91,7 +94,7 @@ export default function QuestionsStage4({navigation}) {
         return (
             <View style={{justifyContent:'center',alignItems:'center',paddingVertical:10}}> 
                 <Text style={{color:'#fff'}}>Stage 4 of 4</Text>
-                <Text>{counter4}</Text>
+       
             </View>
             );
     };
@@ -104,7 +107,18 @@ export default function QuestionsStage4({navigation}) {
             flexDirection:"row",
             paddingVertical:15,justifyContent:'center',alignItems:'center',marginTop:25
         }}
-            onPress={() => navigation.navigate('Result')}
+            onPress={() => {
+                letter.splice(3);
+                if(counter4>=6){
+                    letter.push('J')
+                    navigation.navigate('Result', { letter: letter});
+                }
+                else{
+                    letter.push('P')
+         
+                    navigation.navigate('Result', { letter: letter});
+                    
+                }}}
             > 
             <Text  style={{color:'black',fontSize:16,marginRight:10}}>Show Personality Type</Text> 
             <FontAwesomeIcon  style={{color:'black'}} size={ 20 } icon={ faEye } />

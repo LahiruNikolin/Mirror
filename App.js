@@ -11,10 +11,16 @@ import QuestionsStage2 from './src/screens/QuestionsStage2';
 import QuestionsStage3 from './src/screens/QuestionsStage3';
 import QuestionsStage4 from './src/screens/QuestionsStage4';
 import DetectedScreen from './src/screens/DetectedScreen';
+import CareersScreen from './src/screens/CareersScreen';
+import RelatedScreen from './src/screens/RelatedScreen';
 import * as firebase from 'firebase';
 import {firebaseConfig} from './src/Api/config';
 
-firebase.initializeApp(firebaseConfig);
+
+
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 
 
 
@@ -65,7 +71,23 @@ export default function App() {
           headerTitleStyle: {
             fontWeight: 'bold',
           }, }}/>
-           <Stack.Screen name="Result" component={DetectedScreen}  options={{ title: 'Questions-Stage 4', headerStyle: {
+           <Stack.Screen name="Result" component={DetectedScreen}  options={{ title: 'Result', headerStyle: {
+            backgroundColor: '#1a1a2e',
+          } ,
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          }, }}/>
+
+      <Stack.Screen name="Careers" component={CareersScreen}  options={{ title: 'Suitable Careers', headerStyle: {
+            backgroundColor: '#1a1a2e',
+          } ,
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          }, }}/>
+
+      <Stack.Screen name="Related" component={RelatedScreen}  options={{ title: 'Famous People', headerStyle: {
             backgroundColor: '#1a1a2e',
           } ,
           headerTintColor: '#fff',

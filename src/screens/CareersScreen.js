@@ -4,13 +4,9 @@ import { StyleSheet,View, Text,StatusBar,TextInput,Image,TouchableOpacity,
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faKey,faUser,faArrowRight } from '@fortawesome/free-solid-svg-icons'
 
-export default function RelatedScreen({navigation}) {
+export default function CareerScreen({navigation}) {
 
- 
-
-         
-
-          
+   
     
     return (
         <SafeAreaView style={styles.container}>

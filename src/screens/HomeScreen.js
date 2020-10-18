@@ -123,13 +123,14 @@ const styles = StyleSheet.create({
       
       flexDirection:'row',
      // backgroundColor:'yellow',
-      marginBottom:20
+      marginBottom:20,
+      
      
     },
     text_inp:{
       marginLeft:15,
       height: 45,
-      width:260, 
+      width:Dimensions.get('window').width-80, 
       borderColor: '#2f3640',
       borderWidth: 1,
       borderRadius:5,

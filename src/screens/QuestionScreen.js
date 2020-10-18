@@ -1,10 +1,16 @@
-import React,{ useState } from 'react';
+import React,{ useState, useEffect } from 'react';
 import { StyleSheet,View, Text,FlatList,Button,Image,
     TouchableOpacity,SafeAreaView,Dimensions,StatusBar  } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faTimes,faCheck,faForward } from '@fortawesome/free-solid-svg-icons'
 
 export default function QuestionScreen({navigation}) {
+
+    useEffect(() => {
+ 
+        detectLetter();
+     
+      }, [] );
 
     const [questions, setQuestions] = useState([
         {text: 'Are you typically loud and outgoing?',key:'1',value:0},
@@ -21,6 +27,26 @@ export default function QuestionScreen({navigation}) {
     ]);
 
     const [counter1, setCounter1] = useState(0);
+    const [letter, setLetter] = useState([]);
+ 
+     
+
+    const detectLetter=async()=>{
+
+        if(counter1>=6){
+            await setLetter(['E']);
+           console.log('here');
+           console.log(letter);
+        }
+        else{
+ 
+            setLetter(['I']);
+            
+        }
+
+       
+       
+    }
 
     function flipValue(index){
         let tempQues=questions;
@@ -38,6 +64,8 @@ export default function QuestionScreen({navigation}) {
           });
 
          // console.log(tempQues);
+
+         detectLetter();
 
 
         setQuestions([...tempQues]);
@@ -62,6 +90,7 @@ export default function QuestionScreen({navigation}) {
 
          // console.log(tempQues);
 
+         detectLetter();
 
         setQuestions([...tempQues]);
     }
@@ -89,7 +118,7 @@ export default function QuestionScreen({navigation}) {
         return (
             <View style={{justifyContent:'center',alignItems:'center',paddingVertical:10}}> 
                 <Text style={{color:'#fff'}}>Stage 1 of 4</Text>
-                <Text style={{color:'#fff'}}>{counter1}</Text>
+               
                 <StatusBar backgroundColor="#1a1a2e"   />
             </View>
             );
@@ -103,7 +132,19 @@ export default function QuestionScreen({navigation}) {
                     flexDirection:"row",
                     paddingVertical:15,justifyContent:'center',alignItems:'center',marginTop:25
                 }}
-                    onPress={() => navigation.navigate('Question2')}
+                    onPress={() => {
+
+                        if(counter1>=6){
+                            navigation.navigate('Question2', { letter: ['E']});
+                        }
+                        else{
+                 
+                            navigation.navigate('Question2', { letter: ['I']});
+                            
+                        }
+                             
+                    }
+                }
                     > 
                     <Text  style={{color:'black',fontSize:16,marginRight:10}}>Proceed to Stage 2</Text> 
                     <FontAwesomeIcon  style={{color:'black'}} size={ 20 } icon={ faForward } />

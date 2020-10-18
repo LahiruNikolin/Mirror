@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faTimes,faCheck,faForward } from '@fortawesome/free-solid-svg-icons'
 
 
-export default function QuestionsStage2({navigation}) {
+export default function QuestionsStage2({navigation,route}) {
     const [questions2, setQuestions2] = useState([
         {text: 'When accomplishing a task do you prefer to do things the accepted way?',key:'1',value:0},
         {text: 'If you were a teacher,would you prioritize evidence over theoroeis?',key:'2',value:0},
@@ -21,6 +21,11 @@ export default function QuestionsStage2({navigation}) {
     ]);
 
     const [counter2, setCounter2] = useState(0);
+    const { letter } = route.params;
+
+    
+
+  
 
     function flipValue(index){
         let tempQues=questions2;
@@ -90,7 +95,7 @@ export default function QuestionsStage2({navigation}) {
         return (
             <View style={{justifyContent:'center',alignItems:'center',paddingVertical:10}}> 
                 <Text style={{color:'#fff'}}>Stage 2 of 4</Text>
-                <Text style={{color:'#fff'}}>{counter2}</Text>
+             
                 <StatusBar backgroundColor="#1a1a2e"   />
             </View>
             );
@@ -104,7 +109,26 @@ export default function QuestionsStage2({navigation}) {
             flexDirection:"row",
             paddingVertical:15,justifyContent:'center',alignItems:'center',marginTop:25
         }}
-            onPress={() => navigation.navigate('Question3')}
+            onPress={() => {
+
+                 letter.splice(1);
+
+                if(counter2>=6){
+                    letter.push('S')
+                    navigation.navigate('Question3', { letter: letter});
+                }
+                else{
+                    letter.push('N')
+         
+                    navigation.navigate('Question3', { letter: letter});
+                    
+                }
+                     
+
+
+            }
+        
+        }
             > 
             <Text  style={{color:'black',fontSize:16,marginRight:10}}>Proceed to Stage 3</Text> 
             <FontAwesomeIcon  style={{color:'black'}} size={ 20 } icon={ faForward } />

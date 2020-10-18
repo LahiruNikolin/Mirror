@@ -4,7 +4,10 @@ import { StyleSheet,View, Text,FlatList,Button,Image,
     import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
     import { faTimes,faCheck,faForward } from '@fortawesome/free-solid-svg-icons'
 
-export default function QuestionsStage3({navigation}) {
+export default function QuestionsStage3({route,navigation}) {
+
+
+    const { letter } = route.params;
     const [questions3, setQuestions3] = useState([
         {text: 'Do you follow your heart over your head?',key:'1',value:0},
         {text: 'Would you rather be called empathetic than reasonable?',key:'2',value:0},
@@ -88,7 +91,7 @@ export default function QuestionsStage3({navigation}) {
         return (
             <View style={{justifyContent:'center',alignItems:'center',paddingVertical:10}}> 
             <Text style={{color:'#fff'}}>Stage 3 of 4</Text>
-            <Text style={{color:'#fff'}}>{counter3}</Text>
+            
             <StatusBar backgroundColor="#1a1a2e"   />
         </View>
             );
@@ -102,7 +105,19 @@ export default function QuestionsStage3({navigation}) {
             flexDirection:"row",
             paddingVertical:15,justifyContent:'center',alignItems:'center',marginTop:25
         }}
-            onPress={() => navigation.navigate('Question4')}
+            onPress={() =>{
+                letter.splice(2);
+                if(counter3>=6){
+                    letter.push('F')
+                    navigation.navigate('Question4', { letter: letter});
+                }
+                else{
+                    letter.push('T')
+         
+                    navigation.navigate('Question4', { letter: letter});
+                    
+                }}
+            }
             > 
             <Text  style={{color:'black',fontSize:16,marginRight:10}}>Proceed to Stage 4</Text> 
             <FontAwesomeIcon  style={{color:'black'}} size={ 20 } icon={ faForward } />
