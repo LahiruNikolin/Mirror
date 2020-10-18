@@ -43,6 +43,21 @@ export default function HomeScreen({route,navigation}) {
                     <FontAwesomeIcon  style={{color:'#fff' ,marginLeft:5}} size={ 20 } icon={ faArrowRight } />
               </TouchableOpacity> 
             </View>
+            <View>
+   
+
+              
+              <TouchableOpacity style={ {  }}  
+                  onPress={() => navigation.navigate('Questions')}
+                >
+                  <Text style={{color:'#fff',textAlign:"center",fontSize:16,
+                  textDecorationLine:'underline',alignSelf:"center",marginTop:20
+                  
+                  }}>Take The Test Again</Text>
+                  
+              </TouchableOpacity> 
+           
+            </View>
           
           </View>
          
