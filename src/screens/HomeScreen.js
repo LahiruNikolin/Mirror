@@ -1,12 +1,40 @@
-import React from 'react';
+import React,{ useState } from 'react';
 import { StyleSheet,View, Text,StatusBar,TextInput,Image,TouchableOpacity,
-  Dimensions, SafeAreaView,KeyboardAvoidingView  } from 'react-native';
+  Dimensions, SafeAreaView,KeyboardAvoidingView,ToastAndroid } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faKey,faUser,faArrowRight } from '@fortawesome/free-solid-svg-icons'
+ 
+
+import firebase from 'firebase'
+
 
 export default function HomeScreen({navigation}) {
 
   const  Offset = Platform.OS === 'ios' ? 40 : 0
+
+  const [userInfo, setUserInfo] = useState({email:'',password:''});
+
+  const login=()=>{
+
+         firebase.auth().signInWithEmailAndPassword(userInfo.email, userInfo.password)
+            .then((user) => {
+
+              navigation.navigate('Questions');
+             
+         })
+         .catch((error) => {
+              var errorCode = error.code;
+             var errorMessage = error.message;
+
+             ToastAndroid.showWithGravity(
+              errorMessage,
+              ToastAndroid.SHORT,
+              ToastAndroid.BOTTOM
+            );
+    
+           });
+
+}
 
          
 
@@ -45,6 +73,10 @@ export default function HomeScreen({navigation}) {
                   style={styles.text_inp}
                   placeholder='Email'
                   placeholderTextColor="#b2bec3" 
+                  onChangeText={(email) => setUserInfo(state =>{
+                    return {...state,email}
+            
+                  })} 
                     
                 />
               </View>
@@ -55,14 +87,24 @@ export default function HomeScreen({navigation}) {
                   secureTextEntry={true}
                   placeholder='Password'
                   placeholderTextColor="#b2bec3" 
-                  
+                  onChangeText={(password) => setUserInfo(state =>{
+                    return {...state,password}
+            
+                  })} 
                   
                 />
                 
               </View>
               <View>
 
-                <TouchableOpacity style={styles.btn}>
+                <TouchableOpacity style={styles.btn}
+                  onPress={() => {
+                    
+                    login()
+                   }
+                  }
+                
+                >
                   <Text style={{color:'#fff',textAlign:"center",fontSize:20}} >LOGIN</Text>
                   </TouchableOpacity> 
                 <TouchableOpacity style={styles.btn}  

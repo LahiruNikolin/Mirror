@@ -12,7 +12,7 @@ export default function HomeScreen({navigation}) {
   const [userInfo, setUserInfo] = useState({email:'',password:''});
   const [creating, setCreating] = useState(false);
 
-  const login=()=>{
+  const sign=()=>{
 
    // console.log(userInfo);
 
@@ -122,7 +122,7 @@ export default function HomeScreen({navigation}) {
             <TouchableOpacity style={styles.btn}
              onPress={() => {
               setCreating(true);
-              login()
+              sign()
              }
             }
             

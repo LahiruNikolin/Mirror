@@ -16,7 +16,12 @@ export default function QuestionsStage2({navigation,route}) {
         {text: 'Would you  rather befriend someone who is grounded instead of someone with an active imagination',key:'7',value:0},
         {text: 'Are you more interested in facts than ideas?',key:'8',value:0},
         {text: 'Do your friends describe you as "matter-of-fact"?',key:'9',value:0},
-        {text: 'Do you like concrete answers over theoretical questions?',key:'10',value:0}
+        {text: 'Do you like concrete answers over theoretical questions?',key:'10',value:0},
+        {text: 'Are you pragmatic and look to the “bottom line”?',key:'11',value:0},
+        {text: 'Do you trust experience over words and symbol?',key:'12',value:0},
+        {text: 'Are you a person who involves in a process to make new possibilities into reality?',key:'13',value:0},
+        {text: 'Would you rather learn by thinking a problem through than by hands-on experience?',key:'14',value:0},
+        {text: 'Do you like to see big pictures before finding out the facts?',key:'15',value:0}
     
     ]);
 

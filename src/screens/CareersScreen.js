@@ -4,7 +4,13 @@ import { StyleSheet,View, Text,StatusBar,TextInput,Image,TouchableOpacity,
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faKey,faUser,faArrowRight } from '@fortawesome/free-solid-svg-icons'
 
-export default function CareerScreen({navigation}) {
+import careers from './../Api/careers'
+
+export default function CareerScreen({route,navigation}) {
+
+  const { letter } = route.params;
+
+  let pType=letter.join('');
 
    
     
@@ -12,9 +18,17 @@ export default function CareerScreen({navigation}) {
         <SafeAreaView style={styles.container}>
           <View style={{ width: Dimensions.get('window').width,justifyContent:'center',alignItems:'center'}}>
 
-           <Text style={{color:'#fff',fontSize:35, marginTop:15,textAlign:'center'}}>Still under development</Text>
+          <Image 
+              style={{ width: 140, height: 140 ,marginTop:15}}
+              source={require('./../../assets/working.png')} />
+
+    <Text style={{color:'#fff',fontSize:30, marginTop:15,textAlign:'center',textDecorationLine:"underline"}}>Carrers that suits you!</Text>
            <StatusBar   backgroundColor="#1a1a2e" />
            </View>
+
+           <View style={{  }} >
+          {careers(pType)}
+          </View>
        
       </SafeAreaView>
     );

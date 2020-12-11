@@ -18,7 +18,12 @@ export default function QuestionsStage3({route,navigation}) {
         {text: 'Would your friends say you are a devoted friend?',key:'7',value:0},
         {text: 'When a problem arises,do you handle it gently and  carefully?',key:'8',value:0},
         {text: 'Do you value compassion over strenght?',key:'9',value:0},
-        {text: 'Do people describe you as soft or comfortable?',key:'10',value:0}
+        {text: 'Do people describe you as soft or comfortable?',key:'10',value:0},
+        {text: 'Do you enjoy in technical and scientific fields?',key:'11',value:0},
+        {text: 'Are you quick enough to notice inconsistencies?',key:'12',value:0},
+        {text: 'Have you ever cheated in a cricket game when umpiring?',key:'13',value:0},
+        {text: 'Have you ever lied to safeguard you friend?',key:'14',value:0},
+        {text: 'Do you think being tactful is more important than telling cold truth?',key:'15',value:0}
       
     ]);
     const [counter3, setCounter3] = useState(0);

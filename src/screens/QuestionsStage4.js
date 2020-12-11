@@ -20,7 +20,12 @@ export default function QuestionsStage4({route,navigation}) {
         {text: 'Do you find the  most success when following a detailed  plan?',key:'7',value:0},
         {text: 'Are you always early?',key:'8',value:0},
         {text: 'Do you struggle underpressure?',key:'9',value:0},
-        {text: 'Do you have a hard time being spontaneous??',key:'10',value:0}
+        {text: 'Do you have a hard time being spontaneous?',key:'10',value:0},
+        {text: 'Have you ever been late to meet your friends because of your work?',key:'11',value:0},
+        {text: 'Have you ever stimulated by an approaching deadline?',key:'12',value:0},
+        {text: 'Do you appear to be a task oriented person?',key:'13',value:0},
+        {text: 'Do you prefer to keep minimum plans?',key:'14',value:0},
+        {text: 'Have you ever failed to make decisions by staying open to new information for so long?',key:'15',value:0},
         
     ]);
 

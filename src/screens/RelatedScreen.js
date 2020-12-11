@@ -4,21 +4,31 @@ import { StyleSheet,View, Text,StatusBar,TextInput,Image,TouchableOpacity,
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faKey,faUser,faArrowRight } from '@fortawesome/free-solid-svg-icons'
 
-export default function RelatedScreen({navigation}) {
+import celebs from './../Api/celebs'
 
- 
+export default function RelatedScreen({navigation,route}) {
+
+  
+  const { letter } = route.params;
+
+  let pType=letter.join('');
 
          
-
           
     
     return (
         <SafeAreaView style={styles.container}>
           <View style={{ width: Dimensions.get('window').width,justifyContent:'center',alignItems:'center'}}>
 
-           <Text style={{color:'#fff',fontSize:35, marginTop:15,textAlign:'center'}}>Still under development</Text>
+          <Image 
+              style={{ width: 240, height: 140 ,marginTop:35}}
+              source={require('./../../assets/celeb.jpg')} />
+
+           
            <StatusBar   backgroundColor="#1a1a2e" />
            </View>
+
+           {celebs(pType)}
        
       </SafeAreaView>
     );

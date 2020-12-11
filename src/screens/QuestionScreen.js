@@ -1,6 +1,6 @@
 import React,{ useState, useEffect } from 'react';
 import { StyleSheet,View, Text,FlatList,Button,Image,
-    TouchableOpacity,SafeAreaView,Dimensions,StatusBar  } from 'react-native';
+    TouchableOpacity,SafeAreaView,Dimensions,StatusBar,ToastAndroid  } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faTimes,faCheck,faForward } from '@fortawesome/free-solid-svg-icons'
 
@@ -13,16 +13,21 @@ export default function QuestionScreen({navigation}) {
       }, [] );
 
     const [questions, setQuestions] = useState([
-        {text: 'Are you typically loud and outgoing?',key:'1',value:0},
-        {text: 'Among your friends, are you often the first to find out about things?',key:'2',value: 0},
-        {text: 'Do you have a large number of friends you don\'t know very well?',key:'3',value: 0},
-        {text: 'Do you talk more than you listen?',key:'4',value: 0},
-        {text: 'Can you comfortably talk to almost anyone?',key:'5',value: 0},
-        {text: 'Do you introduce your friends to new people?',key:'6',value: 0},
-        {text: 'Do strangers feel like they know you right away?',key:'7',value: 0},
-        {text: 'Do you wear your hearts on your sleeve?',key:'8',value: 0},
-        {text: 'Would a stranger describe you as lively and energetic?',key:'9',value: 0},
-        {text: 'Do you enjoy getting to know people?',key:'10',value: 0}
+        {text: 'Are you typically loud and outgoing?',key:'1',value:0,up:1},
+        {text: 'Among your friends, are you often the first to find out about things?',key:'2',value: 0,up:1},
+        {text: 'Do you have a large number of friends you don\'t know very well?',key:'3',value: 0,up:1},
+        {text: 'Do you talk more than you listen?',key:'4',value: 0,up:1},
+        {text: 'Can you comfortably talk to almost anyone?',key:'5',value: 0,up:1},
+        {text: 'Do you introduce your friends to new people?',key:'6',value: 0,up:1},
+        {text: 'Do strangers feel like they know you right away?',key:'7',value: 0,up:1},
+        {text: 'Do you wear your hearts on your sleeve?',key:'8',value: 0,up:1},
+        {text: 'Would a stranger describe you as lively and energetic?',key:'9',value: 0,up:1},
+        {text: 'Do you jump too quickly into an activity and don’t allow enough time to think over?',key:'10',value: 0,up:1},
+        {text: 'Do you see as “reflective” or “reserved”?',key:'11',value: 0,up:0},
+        {text: 'Do like to be alone and do things in your own?',key:'12',value: 0,up:0},
+        {text: 'Sometimes have you ever forgot to check with outside the world to see your ideas really fit with experience?',key:'13',value: 0,up:0},
+        {text: 'Before starting a project have you ever stop and get clear about what project you are doing and why you are doing it?',key:'14',value: 0,up:0},
+        {text: 'Do you feel that you are energized when you deal with ideas, memories and reactions that you think within you?',key:'15',value: 0,up:0}
  
     ]);
 
@@ -33,10 +38,10 @@ export default function QuestionScreen({navigation}) {
 
     const detectLetter=async()=>{
 
-        if(counter1>=6){
+        if(counter1>=9){
             await setLetter(['E']);
-           console.log('here');
-           console.log(letter);
+         //  console.log('here');
+         //  console.log(letter);
         }
         else{
  
@@ -48,12 +53,85 @@ export default function QuestionScreen({navigation}) {
        
     }
 
+    function setCount(index,flag){
+
+        let tempQues=questions;
+        let target=tempQues.find(el=> el.key==index);
+        if(target.value==1 && flag=="Y")return;//avoid counting twice
+
+        if(target.value==1 && flag=="N") minusCounter(1); 
+
+        if(flag=="Y" && target.up==1){
+            setCounter1(counter1 + 1);
+            target.value=1;
+          
+        }
+        else if(flag=="Y" && target.up==0){
+
+           // setCounter1(counter1 + 1);
+            target.value=1;
+            
+
+        }
+        else if(flag=="N" && target.up==0){
+
+            setCounter1(counter1 + 1);
+            target.value=2;
+            
+
+        }
+        
+        else if(flag=="N" && target.up==1){
+
+           // setCounter1(counter1 - 1); 
+           if(target.value==1)minusCounter(1);
+           
+           target.value=2;
+            
+
+        }
+        else{
+            target.value=2;
+            console.log("im game");
+           
+        }
+
+        tempQues=tempQues.filter(el=>el.key!=index);
+        //console.log(tempQues);
+        tempQues=[...tempQues,target];
+
+        tempQues.sort(function (a, b) {
+            return a.key - b.key;
+          });
+
+
+         // console.log(tempQues);
+
+         detectLetter();
+
+        console.log(counter1);
+
+
+        setQuestions([...tempQues]);
+    }
+
+    function minusCounter(targetVal){
+
+        if(counter1>0 && targetVal==1){
+            setCounter1(counter1 - 1);
+        }
+
+        
+
+    }
+
+
     function flipValue(index){
         let tempQues=questions;
         let target=tempQues.find(el=> el.key==index);
         if(target.value==1)return;
 
-        setCounter1(counter1 + 1);
+        setCounter1(counter1 + target.up);
         target.value=1;
         tempQues=tempQues.filter(el=>el.key!=index);
         //console.log(tempQues);
@@ -66,6 +144,8 @@ export default function QuestionScreen({navigation}) {
          // console.log(tempQues);
 
          detectLetter();
+
+      // console.log(counter1);
 
 
         setQuestions([...tempQues]);
@@ -119,7 +199,7 @@ export default function QuestionScreen({navigation}) {
             <View style={{justifyContent:'center',alignItems:'center',paddingVertical:10}}> 
                 <Text style={{color:'#fff'}}>Stage 1 of 4</Text>
                
-                <StatusBar backgroundColor="#1a1a2e"   />
+                <StatusBar backgroundColor="#1a1a2e"/>
             </View>
             );
     };
@@ -134,7 +214,7 @@ export default function QuestionScreen({navigation}) {
                 }}
                     onPress={() => {
 
-                        if(counter1>=6){
+                        if(counter1>=9){
                             navigation.navigate('Question2', { letter: ['E']});
                         }
                         else{
@@ -182,7 +262,7 @@ export default function QuestionScreen({navigation}) {
                                     style={ item.value==1 ? styles.btn_selected :styles.btn }
                                 onPress={() =>  {
                                    
-                                    flipValue(item.key);
+                                    setCount(item.key,"Y");
                                 }}
                                 >
                                   <View style={{justifyContent:'center',alignItems:'center'}}>
@@ -195,7 +275,7 @@ export default function QuestionScreen({navigation}) {
                                     style={ item.value==2 ? styles.noBtn_selected :styles.noBtn }
                                     onPress={() =>  {
                                         
-                                        flipValueNo(item.key);
+                                        setCount(item.key,"N");
                                     }}
                                 >
                                  <View style={{justifyContent:'center',alignItems:'center'}}>
