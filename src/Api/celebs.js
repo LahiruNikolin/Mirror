@@ -168,31 +168,26 @@ export default showInfo=(letter)=>{
                 <View style={{paddingHorizontal:45,marginTop:40}}>
                <View style={{flexDirection:'row'}}>
                     
-                    <Text style={{fontSize:25,color:'#fff'}}>Artist </Text>
+                    <Text style={{fontSize:25,color:'#fff'}}>Michael Jackson </Text>
                     <FontAwesomeIcon  style={{color:'#fff',color:'#2980b9',marginLeft:2,alignSelf:'center'}} size={ 25 } icon={ faCheckCircle } /> 
 
                   </View>
 
                   <View style={{flexDirection:'row'}}>
                     
-                    <Text style={{fontSize:25,color:'#fff'}}>Musician </Text>
+                    <Text style={{fontSize:25,color:'#fff'}}>Brad Pitt</Text>
                     <FontAwesomeIcon  style={{color:'#fff',color:'#2980b9',marginLeft:2,alignSelf:'center'}} size={ 25 } icon={ faCheckCircle } /> 
 
                   </View>
 
                   <View style={{flexDirection:'row'}}>
                     
-                    <Text style={{fontSize:25,color:'#fff'}}>Designer </Text>
+                    <Text style={{fontSize:25,color:'#fff'}}>Rihanna</Text>
                     <FontAwesomeIcon  style={{color:'#fff',color:'#2980b9',marginLeft:2,alignSelf:'center'}} size={ 25 } icon={ faCheckCircle } /> 
 
                   </View>
 
-                  <View style={{flexDirection:'row'}}>
-                    
-                    <Text style={{fontSize:25,color:'#fff'}}>Chef </Text>
-                    <FontAwesomeIcon  style={{color:'#fff',color:'#2980b9',marginLeft:2,alignSelf:'center'}} size={ 25 } icon={ faCheckCircle } /> 
-
-                  </View>
+                 
                   
               </View>
             );

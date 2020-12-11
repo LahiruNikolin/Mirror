@@ -7,21 +7,21 @@ import { faTimes,faCheck,faForward } from '@fortawesome/free-solid-svg-icons'
 
 export default function QuestionsStage2({navigation,route}) {
     const [questions2, setQuestions2] = useState([
-        {text: 'When accomplishing a task do you prefer to do things the accepted way?',key:'1',value:0},
-        {text: 'If you were a teacher,would you prioritize evidence over theoroeis?',key:'2',value:0},
-        {text: 'Do you admire people who are normal and discreet over people who are original and carefree?',key:'3',value:0},
-        {text: 'Do you get along with realistic people better than idealistic people?',key:'4',value:0},
-        {text: 'Do you enjoy when authors say exactly what they mean?',key:'5',value:0},
-        {text: 'Do you conside yourself a practical person?',key:'6',value:0},
-        {text: 'Would you  rather befriend someone who is grounded instead of someone with an active imagination',key:'7',value:0},
-        {text: 'Are you more interested in facts than ideas?',key:'8',value:0},
-        {text: 'Do your friends describe you as "matter-of-fact"?',key:'9',value:0},
-        {text: 'Do you like concrete answers over theoretical questions?',key:'10',value:0},
-        {text: 'Are you pragmatic and look to the “bottom line”?',key:'11',value:0},
-        {text: 'Do you trust experience over words and symbol?',key:'12',value:0},
-        {text: 'Are you a person who involves in a process to make new possibilities into reality?',key:'13',value:0},
-        {text: 'Would you rather learn by thinking a problem through than by hands-on experience?',key:'14',value:0},
-        {text: 'Do you like to see big pictures before finding out the facts?',key:'15',value:0}
+        {text: 'When accomplishing a task do you prefer to do things the accepted way?',key:'1',value:0,up:1},
+        {text: 'If you were a teacher,would you prioritize evidence over theoroeis?',key:'2',value:0,up:1},
+        {text: 'Do you admire people who are normal and discreet over people who are original and carefree?',key:'3',value:0,up:1},
+        {text: 'Do you get along with realistic people better than idealistic people?',key:'4',value:0,up:1},
+        {text: 'Do you enjoy when authors say exactly what they mean?',key:'5',value:0,up:1},
+        {text: 'Do you conside yourself a practical person?',key:'6',value:0,up:1},
+        {text: 'Would you  rather befriend someone who is grounded instead of someone with an active imagination',key:'7',value:0,up:1},
+        {text: 'Are you more interested in facts than ideas?',key:'8',value:0,up:1},
+        {text: 'Do your friends describe you as "matter-of-fact"?',key:'9',value:0,up:1},
+        {text: 'Do you like concrete answers over theoretical questions?',key:'10',value:0,up:1},
+        {text: 'Are you pragmatic and look to the “bottom line”?',key:'11',value:0,up:1},
+        {text: 'Do you trust experience over words and symbol?',key:'12',value:0,up:1},
+        {text: 'Are you a person who involves in a process to make new possibilities into reality?',key:'13',value:0,up:0},
+        {text: 'Would you rather learn by thinking a problem through than by hands-on experience?',key:'14',value:0,up:0},
+        {text: 'Do you like to see big pictures before finding out the facts?',key:'15',value:0,up:0}
     
     ]);
 
@@ -29,7 +29,78 @@ export default function QuestionsStage2({navigation,route}) {
     const { letter } = route.params;
 
     
+    function setCount(index,flag){
 
+        let tempQues=questions2;
+        let target=tempQues.find(el=> el.key==index);
+        if(target.value==1 && flag=="Y")return;//avoid counting twice
+
+        if(target.value==1 && flag=="N") minusCounter(1); 
+
+        if(flag=="Y" && target.up==1){
+            setCounter2(counter2 + 1);
+            target.value=1;
+          
+        }
+        else if(flag=="Y" && target.up==0){
+
+           // setCounter1(counter1 + 1);
+           if(target.value==2)minusCounter(1);
+
+            target.value=1;
+            
+        }
+        else if(flag=="N" && target.up==0){
+
+            setCounter2(counter2 + 1);
+            target.value=2;
+            
+        }
+        
+        else if(flag=="N" && target.up==1){
+
+           
+           if(target.value==1)minusCounter(1);
+           
+           target.value=2;
+            
+
+        }
+        else{
+            target.value=2;
+            console.log("im game");
+           
+        }
+
+        tempQues=tempQues.filter(el=>el.key!=index);
+        //console.log(tempQues);
+        tempQues=[...tempQues,target];
+
+        tempQues.sort(function (a, b) {
+            return a.key - b.key;
+          });
+
+
+         // console.log(tempQues);
+
+       //  detectLetter();
+
+        console.log(counter2);
+
+
+        setQuestions2([...tempQues]);
+    }
+
+    function minusCounter(targetVal){
+
+        if(counter2>0 && targetVal==1){
+            setCounter2(counter2 - 1);
+        }
+
+        
+
+    }
+ 
   
 
     function flipValue(index){
@@ -118,7 +189,7 @@ export default function QuestionsStage2({navigation,route}) {
 
                  letter.splice(1);
 
-                if(counter2>=6){
+                if(counter2>=9){
                     letter.push('S')
                     navigation.navigate('Question3', { letter: letter});
                 }
@@ -169,7 +240,7 @@ export default function QuestionsStage2({navigation,route}) {
                                     style={ item.value==1 ? styles.btn_selected :styles.btn }
                                 onPress={() =>  {
                                    
-                                    flipValue(item.key);
+                                    setCount(item.key,"Y");
                                 }}
                                 >
                                   <View style={{justifyContent:'center',alignItems:'center'}}>
@@ -182,7 +253,7 @@ export default function QuestionsStage2({navigation,route}) {
                                     style={ item.value==2 ? styles.noBtn_selected :styles.noBtn }
                                     onPress={() =>  {
                                         
-                                        flipValueNo(item.key);
+                                        setCount(item.key,"N");
                                     }}
                                 >
                                  <View style={{justifyContent:'center',alignItems:'center'}}>

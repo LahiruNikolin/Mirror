@@ -9,24 +9,98 @@ export default function QuestionsStage3({route,navigation}) {
 
     const { letter } = route.params;
     const [questions3, setQuestions3] = useState([
-        {text: 'Do you follow your heart over your head?',key:'1',value:0},
-        {text: 'Would you rather be called empathetic than reasonable?',key:'2',value:0},
-        {text: 'Do you value  emotion over logic?',key:'3',value:0},
-        {text: 'Do  you like sad stories over thought-provoking stories?',key:'4',value:0},
-        {text: 'Amoung your friends are you the peacemaker?',key:'5',value:0},
-        {text: 'Do you try to sympathize with your friends problems instead of analyzing them?',key:'6',value:0},
-        {text: 'Would your friends say you are a devoted friend?',key:'7',value:0},
-        {text: 'When a problem arises,do you handle it gently and  carefully?',key:'8',value:0},
-        {text: 'Do you value compassion over strenght?',key:'9',value:0},
-        {text: 'Do people describe you as soft or comfortable?',key:'10',value:0},
-        {text: 'Do you enjoy in technical and scientific fields?',key:'11',value:0},
-        {text: 'Are you quick enough to notice inconsistencies?',key:'12',value:0},
-        {text: 'Have you ever cheated in a cricket game when umpiring?',key:'13',value:0},
-        {text: 'Have you ever lied to safeguard you friend?',key:'14',value:0},
-        {text: 'Do you think being tactful is more important than telling cold truth?',key:'15',value:0}
+        {text: 'Do you follow your heart over your head?',key:'1',value:0,up:1},
+        {text: 'Would you rather be called empathetic than reasonable?',key:'2',value:0,up:1},
+        {text: 'Do you value  emotion over logic?',key:'3',value:0,up:1},
+        {text: 'Do  you like sad stories over thought-provoking stories?',key:'4',value:0,up:1},
+        {text: 'Amoung your friends are you the peacemaker?',key:'5',value:0,up:1},
+        {text: 'Do you try to sympathize with your friends problems instead of analyzing them?',key:'6',value:0,up:1},
+        {text: 'Would your friends say you are a devoted friend?',key:'7',value:0,up:1},
+        {text: 'When a problem arises,do you handle it gently and  carefully?',key:'8',value:0,up:1},
+        {text: 'Do you value compassion over strenght?',key:'9',value:0,up:1},
+        {text: 'Do people describe you as soft or comfortable?',key:'10',value:0,up:1},
+        {text: 'Do you enjoy in technical and scientific fields?',key:'11',value:0,up:1},
+        {text: 'Are you quick enough to notice inconsistencies?',key:'12',value:0,up:1},
+        {text: 'Have you ever cheated in a cricket game when umpiring?',key:'13',value:0,up:1},
+        {text: 'Have you ever lied to safeguard you friend?',key:'14',value:0,up:1},
+        {text: 'Do you think being tactful is more important than telling cold truth?',key:'15',value:0,up:1}
       
     ]);
     const [counter3, setCounter3] = useState(0);
+
+    function setCount(index,flag){
+
+        let tempQues=questions3;
+        let target=tempQues.find(el=> el.key==index);
+        if(target.value==1 && flag=="Y")return;//avoid counting twice
+
+        if(target.value==1 && flag=="N") minusCounter(1); 
+
+        if(flag=="Y" && target.up==1){
+            setCounter3(counter3 + 1);
+            target.value=1;
+          
+        }
+        else if(flag=="Y" && target.up==0){
+
+           // setCounter1(counter1 + 1);
+           if(target.value==2)minusCounter(1);
+
+            target.value=1;
+            
+        }
+        else if(flag=="N" && target.up==0){
+
+            setCounter3(counter3 + 1);
+            target.value=2;
+            
+        }
+        
+        else if(flag=="N" && target.up==1){
+
+           
+           if(target.value==1)minusCounter(1);
+           
+           target.value=2;
+            
+
+        }
+        else{
+            target.value=2;
+            console.log("im game");
+           
+        }
+
+        tempQues=tempQues.filter(el=>el.key!=index);
+        //console.log(tempQues);
+        tempQues=[...tempQues,target];
+
+        tempQues.sort(function (a, b) {
+            return a.key - b.key;
+          });
+
+
+         // console.log(tempQues);
+
+       //  detectLetter();
+
+        console.log(counter3);
+
+
+        setQuestions3([...tempQues]);
+    }
+
+    function minusCounter(targetVal){
+
+        if(counter3>0 && targetVal==1){
+            setCounter3(counter3 - 1);
+        }
+
+        
+
+    }
+
+
 
     function flipValue(index){
         let tempQues=questions3;
@@ -112,7 +186,7 @@ export default function QuestionsStage3({route,navigation}) {
         }}
             onPress={() =>{
                 letter.splice(2);
-                if(counter3>=6){
+                if(counter3>=9){
                     letter.push('F')
                     navigation.navigate('Question4', { letter: letter});
                 }
@@ -158,7 +232,7 @@ export default function QuestionsStage3({route,navigation}) {
                                 style={ item.value==1 ? styles.btn_selected :styles.btn }
                             onPress={() =>  {
                                
-                                flipValue(item.key);
+                                setCount(item.key,"Y");
                             }}
                             >
                               <View style={{justifyContent:'center',alignItems:'center'}}>
@@ -171,7 +245,7 @@ export default function QuestionsStage3({route,navigation}) {
                                 style={ item.value==2 ? styles.noBtn_selected :styles.noBtn }
                                 onPress={() =>  {
                                     
-                                    flipValueNo(item.key);
+                                    setCount(item.key,"N");
                                 }}
                             >
                              <View style={{justifyContent:'center',alignItems:'center'}}>

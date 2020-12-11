@@ -11,25 +11,100 @@ export default function QuestionsStage4({route,navigation}) {
     const { letter } = route.params;
 
     const [questions4, setQuestions4] = useState([
-        {text: 'Do you plan your entire day?',key:'1',value:0},
-        {text: 'Do you find lists helpful?',key:'2',value:0},
-        {text: 'Do you spend time getting organized before you start working?',key:'3',value:0},
-        {text: 'Do you enjoy planning event for your friends?',key:'4',value:0},
-        {text: 'Do schedules help you manage stress?',key:'5',value:0},
-        {text: 'Do you always keep your promises?',key:'6',value:0},
-        {text: 'Do you find the  most success when following a detailed  plan?',key:'7',value:0},
-        {text: 'Are you always early?',key:'8',value:0},
-        {text: 'Do you struggle underpressure?',key:'9',value:0},
-        {text: 'Do you have a hard time being spontaneous?',key:'10',value:0},
-        {text: 'Have you ever been late to meet your friends because of your work?',key:'11',value:0},
-        {text: 'Have you ever stimulated by an approaching deadline?',key:'12',value:0},
-        {text: 'Do you appear to be a task oriented person?',key:'13',value:0},
-        {text: 'Do you prefer to keep minimum plans?',key:'14',value:0},
-        {text: 'Have you ever failed to make decisions by staying open to new information for so long?',key:'15',value:0},
+        {text: 'Do you plan your entire day?',key:'1',value:0,up:1},
+        {text: 'Do you find lists helpful?',key:'2',value:0,up:1},
+        {text: 'Do you spend time getting organized before you start working?',key:'3',value:0,up:1},
+        {text: 'Do you enjoy planning event for your friends?',key:'4',value:0,up:1},
+        {text: 'Do schedules help you manage stress?',key:'5',value:0,up:1},
+        {text: 'Do you always keep your promises?',key:'6',value:0,up:1},
+        {text: 'Do you find the  most success when following a detailed  plan?',key:'7',value:0,up:1},
+        {text: 'Are you always early?',key:'8',value:0,up:1},
+        {text: 'Do you struggle underpressure?',key:'9',value:0,up:1},
+        {text: 'Do you have a hard time being spontaneous?',key:'10',value:0,up:1},
+        {text: 'Have you ever been late to meet your friends because of your work?',key:'11',value:0,up:0},
+        {text: 'Have you ever stimulated by an approaching deadline?',key:'12',value:0,up:0},
+        {text: 'Do you appear to be a task oriented person?',key:'13',value:0,up:0},
+        {text: 'Do you prefer to keep minimum plans?',key:'14',value:0,up:1},
+        {text: 'Have you ever failed to make decisions by staying open to new information for so long?',key:'15',value:0,up:0},
         
     ]);
 
     const [counter4, setCounter4] = useState(0);
+
+    function setCount(index,flag){
+
+        let tempQues=questions4;
+        let target=tempQues.find(el=> el.key==index);
+        if(target.value==1 && flag=="Y")return;//avoid counting twice
+
+        if(target.value==1 && flag=="N") minusCounter(1); 
+
+        if(flag=="Y" && target.up==1){
+            setCounter4(counter4 + 1);
+            target.value=1;
+          
+        }
+        else if(flag=="Y" && target.up==0){
+
+           // setCounter1(counter1 + 1);
+           if(target.value==2)minusCounter(1);
+
+            target.value=1;
+            
+        }
+        else if(flag=="N" && target.up==0){
+
+            setCounter4(counter4 + 1);
+            target.value=2;
+            
+        }
+        
+        else if(flag=="N" && target.up==1){
+
+           
+           if(target.value==1)minusCounter(1);
+           
+           target.value=2;
+            
+
+        }
+        else{
+            target.value=2;
+            console.log("im game");
+           
+        }
+
+        tempQues=tempQues.filter(el=>el.key!=index);
+        //console.log(tempQues);
+        tempQues=[...tempQues,target];
+
+        tempQues.sort(function (a, b) {
+            return a.key - b.key;
+          });
+
+
+         // console.log(tempQues);
+
+       //  detectLetter();
+
+        console.log(counter4);
+
+
+        setQuestions4([...tempQues]);
+    }
+
+    function minusCounter(targetVal){
+
+        if(counter4>0 && targetVal==1){
+            setCounter4(counter4 - 1);
+        }
+
+        
+
+    }
+
+
+
     function flipValue(index){
         let tempQues=questions4;
         let target=tempQues.find(el=> el.key==index);
@@ -114,7 +189,7 @@ export default function QuestionsStage4({route,navigation}) {
         }}
             onPress={() => {
                 letter.splice(3);
-                if(counter4>=6){
+                if(counter4>=9){
                     letter.push('J')
                     navigation.navigate('Result', { letter: letter});
                 }
@@ -156,7 +231,7 @@ export default function QuestionsStage4({route,navigation}) {
                                 style={ item.value==1 ? styles.btn_selected :styles.btn }
                             onPress={() =>  {
                                
-                                flipValue(item.key);
+                                setCount(item.key,"Y");
                             }}
                             >
                               <View style={{justifyContent:'center',alignItems:'center'}}>
@@ -169,7 +244,7 @@ export default function QuestionsStage4({route,navigation}) {
                                 style={ item.value==2 ? styles.noBtn_selected :styles.noBtn }
                                 onPress={() =>  {
                                     
-                                    flipValueNo(item.key);
+                                    setCount(item.key,"N");
                                 }}
                             >
                              <View style={{justifyContent:'center',alignItems:'center'}}>

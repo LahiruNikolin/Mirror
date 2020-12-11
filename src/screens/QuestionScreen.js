@@ -69,6 +69,8 @@ export default function QuestionScreen({navigation}) {
         else if(flag=="Y" && target.up==0){
 
            // setCounter1(counter1 + 1);
+           if(target.value==2)minusCounter(1);
+
             target.value=1;
             
 
@@ -83,7 +85,7 @@ export default function QuestionScreen({navigation}) {
         
         else if(flag=="N" && target.up==1){
 
-           // setCounter1(counter1 - 1); 
+           
            if(target.value==1)minusCounter(1);
            
            target.value=2;
