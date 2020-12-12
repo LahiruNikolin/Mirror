@@ -102,50 +102,6 @@ export default function QuestionsStage2({navigation,route}) {
     }
  
   
-
-    function flipValue(index){
-        let tempQues=questions2;
-        let target=tempQues.find(el=> el.key==index);
-        if(target.value==1)return;
-
-        setCounter2(counter2 + 1);
-        target.value=1;
-        tempQues=tempQues.filter(el=>el.key!=index);
-        //console.log(tempQues);
-        tempQues=[...tempQues,target];
-
-        tempQues.sort(function (a, b) {
-            return a.key - b.key;
-          });
-
-         // console.log(tempQues);
-
-
-        setQuestions2([...tempQues]);
-    }
-
-    function flipValueNo(index){
-        let tempQues=questions2;
-        let target=tempQues.find(el=> el.key==index);
-        if(target.value==1){
-            setCounter2(counter2 - 1); 
-             
-        }
-
-        target.value=2;
-        tempQues=tempQues.filter(el=>el.key!=index);
-        //console.log(tempQues);
-        tempQues=[...tempQues,target];
-
-        tempQues.sort(function (a, b) {
-            return a.key - b.key;
-          });
-
-         // console.log(tempQues);
-
-
-        setQuestions2([...tempQues]);
-    }
     function showIc(){
    
        return(

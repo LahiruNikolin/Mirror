@@ -39,7 +39,7 @@ export default function QuestionScreen({navigation}) {
     const detectLetter=async()=>{
 
         if(counter1>=9){
-            await setLetter(['E']);
+          await setLetter(['E']);
          //  console.log('here');
          //  console.log(letter);
         }
@@ -94,7 +94,7 @@ export default function QuestionScreen({navigation}) {
         }
         else{
             target.value=2;
-            console.log("im game");
+            
            
         }
 
@@ -127,55 +127,7 @@ export default function QuestionScreen({navigation}) {
 
     }
 
-
-    function flipValue(index){
-        let tempQues=questions;
-        let target=tempQues.find(el=> el.key==index);
-        if(target.value==1)return;
-
-        setCounter1(counter1 + target.up);
-        target.value=1;
-        tempQues=tempQues.filter(el=>el.key!=index);
-        //console.log(tempQues);
-        tempQues=[...tempQues,target];
-
-        tempQues.sort(function (a, b) {
-            return a.key - b.key;
-          });
-
-         // console.log(tempQues);
-
-         detectLetter();
-
-      // console.log(counter1);
-
-
-        setQuestions([...tempQues]);
-    }
-
-    function flipValueNo(index){
-        let tempQues=questions;
-        let target=tempQues.find(el=> el.key==index);
-        if(target.value==1){
-            setCounter1(counter1 - 1); 
-             
-        }
-
-        target.value=2;
-        tempQues=tempQues.filter(el=>el.key!=index);
-        //console.log(tempQues);
-        tempQues=[...tempQues,target];
-
-        tempQues.sort(function (a, b) {
-            return a.key - b.key;
-          });
-
-         // console.log(tempQues);
-
-         detectLetter();
-
-        setQuestions([...tempQues]);
-    }
+ 
     function showIc(){
    
        return(

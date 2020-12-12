@@ -21,10 +21,10 @@ export default function HomeScreen({route,navigation}) {
 
   useEffect(() => {
    
-    getEmail();
+    savingPersonality();
   }, []);
 
-  const getEmail=()=>{
+  const savingPersonality=()=>{
 
     // console.log(userInfo);
  
@@ -47,8 +47,18 @@ export default function HomeScreen({route,navigation}) {
             }, (error) => {
               if (error) {
                 // The write failed...
+                ToastAndroid.showWithGravity(
+                  "Failure Saving",
+                  ToastAndroid.SHORT,
+                  ToastAndroid.BOTTOM
+                );
               } else {
                 // Data saved successfully!
+                ToastAndroid.showWithGravity(
+                  "Successfully Saved",
+                  ToastAndroid.SHORT,
+                  ToastAndroid.BOTTOM
+                );
               }
             });
 

@@ -18,7 +18,7 @@ export default function HomeScreen({navigation}) {
 
     firebase.auth().createUserWithEmailAndPassword(userInfo.email,userInfo.password)
     .then(()=>{
-      console.log("im game");
+      
       setCreating(false);
       navigation.navigate('Questions');
     })

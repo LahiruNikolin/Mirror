@@ -102,49 +102,7 @@ export default function QuestionsStage3({route,navigation}) {
 
 
 
-    function flipValue(index){
-        let tempQues=questions3;
-        let target=tempQues.find(el=> el.key==index);
-        if(target.value==1)return;
-
-        setCounter3(counter3 + 1);
-        target.value=1;
-        tempQues=tempQues.filter(el=>el.key!=index);
-        //console.log(tempQues);
-        tempQues=[...tempQues,target];
-
-        tempQues.sort(function (a, b) {
-            return a.key - b.key;
-          });
-
-         // console.log(tempQues);
-
-
-        setQuestions3([...tempQues]);
-    }
-
-    function flipValueNo(index){
-        let tempQues=questions3;
-        let target=tempQues.find(el=> el.key==index);
-        if(target.value==1){
-            setCounter3(counter3 - 1); 
-             
-        }
-
-        target.value=2;
-        tempQues=tempQues.filter(el=>el.key!=index);
-        //console.log(tempQues);
-        tempQues=[...tempQues,target];
-
-        tempQues.sort(function (a, b) {
-            return a.key - b.key;
-          });
-
-         // console.log(tempQues);
-
-
-        setQuestions3([...tempQues]);
-    }
+    
     function showIc(){
    
        return(
